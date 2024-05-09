@@ -10,6 +10,9 @@ const config = {
 	],
   prefix: "",
   theme: {
+    fontFamily: {
+      "display": "var(--montserrat-font)",
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -18,6 +21,7 @@ const config = {
       },
     },
     extend: {
+      
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -54,6 +58,7 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+  
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
