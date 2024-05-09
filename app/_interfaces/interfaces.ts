@@ -7,7 +7,11 @@ export interface IProduct{
     price:number;
     createdAt:Date;
     updatedAt:Date;
+}
 
+export interface IProducts{
+    products:IProduct[];
+    count:number
 }
 
 export interface ICart{
@@ -27,5 +31,4 @@ export interface ICart{
 decreaseProductQuantity:(productId:string) =>void;
 increaseProductQuantity:(productID:string) =>void;
 clearCart:() => void;
-
 }

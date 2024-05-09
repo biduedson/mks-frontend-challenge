@@ -2,12 +2,18 @@
 
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { api } from "../_api/api";
-import { IProduct } from "../_interfaces/interfaces";
+import { IProduct, IProducts } from "../_interfaces/interfaces";
 
-export const productcontext = createContext<IProduct[]>([]);
+export const productcontext = createContext<IProducts>({
+  products: [],
+  count: 0,
+});
 
 export const ProductsProvider = ({ children }: { children: ReactNode }) => {
-  const [products, setProducts] = useState<IProduct[]>([]);
+  const [products, setProducts] = useState<IProducts>({
+    products: [],
+    count: 0,
+  });
 
   useEffect(() => {
     const allProducts = async () => {
