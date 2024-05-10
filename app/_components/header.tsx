@@ -28,8 +28,8 @@ const Header = () => {
         </SheetTrigger>
         <SheetContent className="bg-p bg-primary-blue">
           <SheetHeader>
-            <SheetTitle className="text-white text-left text-[27px] leading-8 font-bold">
-              Carrinho de compras <p></p>
+            <SheetTitle className="text-white text-left text-[27px] leading-8 font-semibold">
+              Carrinho de compras
             </SheetTitle>
             <>
               <div></div>
