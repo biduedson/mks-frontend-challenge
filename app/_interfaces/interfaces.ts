@@ -5,30 +5,19 @@ export interface IProduct{
     description:string;
     photo:string;
     price:number;
-    createdAt:Date;
-    updatedAt:Date;
+    createdAt:string;
+    updatedAt:string;
+}
+
+export interface ICartProduct{
+    product:IProduct;
+    quantity:number;
 }
 
 export interface IProducts{
     products:IProduct[];
-    count:number
 }
-
-export interface ICart{
-    products: IProduct[];
-    totalPrice: number;
-    totalQuantity:number;
-    addProductToCArt:({
-        product,
-        quantity,
-        emptyCart
-    }:{
-        product:IProduct;
-        quantity:number;
-        emptyCart?:boolean;
-    }
-) => void;
-decreaseProductQuantity:(productId:string) =>void;
-increaseProductQuantity:(productID:string) =>void;
-clearCart:() => void;
+export interface ICartContext{
+    cartProducts:ICartProduct[];
+    addProductToCart:(product: IProduct, quantity: number) => void;
 }
