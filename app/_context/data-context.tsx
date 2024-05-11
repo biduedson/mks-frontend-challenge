@@ -1,6 +1,6 @@
 "use client";
-
-import { ReactNode, createContext, useEffect, useMemo, useState } from "react";
+import Cookies from "js-cookie";
+import { ReactNode, createContext, useMemo, useState } from "react";
 import {
   IProduct,
   ICartProduct,
@@ -20,8 +20,8 @@ export const CartContext = createContext<ICartContext>({
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const initialState = localStorage.getItem("cart")
-    ? JSON.parse(localStorage.getItem("cart")!)
+  const initialState = Cookies.get("cart")
+    ? JSON.parse(Cookies.get("cart")!)
     : [];
 
   const [cartProducts, setCartProducts] =
@@ -33,10 +33,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setIsOpen(() => !isOpen);
     return isOpen;
   };
-
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartProducts));
-  }, [cartProducts]);
 
   const totalCartPrice = useMemo(() => {
     return cartProducts.reduce((acc, product) => {
@@ -56,7 +52,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             quantity: cartProduct.quantity - 1,
           };
         }
-        localStorage.setItem("cart", JSON.stringify(cartProducts));
+        Cookies.set("cart", JSON.stringify(cartProducts));
         return cartProduct;
       })
     );
@@ -71,13 +67,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             quantity: cartProduct.quantity + 1,
           };
         }
-        localStorage.setItem("cart", JSON.stringify(cartProducts));
+        Cookies.set("cart", JSON.stringify(cartProducts));
 
         return cartProduct;
       })
     );
   };
 
+  //Adicionando o produto ao carrinho , e caso ja tenho o produto no carrinho, apenas aumentar sua quantidade.
   const addProductToCart = (product: IProduct, quantity: number) => {
     const isProductAlreadyOnCart = cartProducts.some(
       (cartProduct) => cartProduct.product.id === product.id
@@ -92,22 +89,24 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
               quantity: cartProduct.quantity + quantity,
             };
           }
-          localStorage.setItem("cart", JSON.stringify(cartProducts));
+          Cookies.set("cart", JSON.stringify(cartProducts));
           return cartProduct;
         })
       );
     }
 
     setCartProducts((prev) => [...prev, { product, quantity }]);
-    localStorage.setItem("cart", JSON.stringify(cartProducts));
+    Cookies.set("cart", JSON.stringify(cartProducts));
   };
 
+  //removendo produtos do carrinho
   const removeProductFronCart = (id: number) => {
     return setCartProducts((prev) =>
       prev.filter((product) => product.product.id !== id)
     );
   };
 
+  //limpar carrinho
   const clearCart = () => {
     setCartProducts([]);
   };
@@ -117,12 +116,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       value={{
         isOpen,
         cartProducts,
+        totalCartPrice,
         sideBarOpen,
         addProductToCart,
         removeProductFronCart,
         decreaseProductQuantity,
         increaseProductQuantity,
-        totalCartPrice,
         clearCart,
       }}
     >
