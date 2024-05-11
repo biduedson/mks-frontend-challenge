@@ -27,9 +27,9 @@ const ProductList = () => {
     return <h1 className="ani animate-pulse">loading!</h1>;
   }
   return (
-    <div className="flex items-center flex-col gap-4 pb-16 pt-4 ">
+    <div className="flex flex-col gap-4 pb-16 pt-4  md:grid sm:grid-cols-2 lg:grid-cols-4  lg:p-[120px] lg:pt-0 lg:pb-0 ">
       {products.products.map((product) => (
-        <div className="" key={product.id}>
+        <div className=" flex justify-center items-center" key={product.id}>
           <ProductItem product={product} />
         </div>
       ))}
