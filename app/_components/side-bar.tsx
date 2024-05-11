@@ -12,7 +12,7 @@ const SideBar = () => {
   return (
     <div>
       <div
-        className={`lg:w-[50vw] xl:w-[30vw] [&::-webkit-scrollbar]:hidden fixed top-0 right-0  h-full bg-primary-blue w-[82vw]  ${
+        className={`lg:w-[50vw] xl:w-[40vw] [&::-webkit-scrollbar]:hidden fixed top-0 right-0  h-full bg-primary-blue w-[82vw]  ${
           isOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
         } transition duration-500 `}
       >
