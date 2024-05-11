@@ -10,7 +10,7 @@ import {
 } from "./ui/sheet";
 import Cart from "./cart";
 import { useContext, useState } from "react";
-import { CartContext } from "../_context/data-context";
+import { CartContext } from "../_provider/cartProducts-context";
 import { formatCurrency } from "../_helpers/price";
 import TotalPriceCart from "./total-cart-price";
 import SideBar from "./side-bar";

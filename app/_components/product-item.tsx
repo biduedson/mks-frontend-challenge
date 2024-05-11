@@ -4,7 +4,7 @@ import { IProduct } from "../_interfaces/interfaces";
 import { Button } from "./ui/button";
 import { formatCurrency } from "../_helpers/price";
 import { useContext, useEffect, useState } from "react";
-import { CartContext } from "../_context/data-context";
+import { CartContext } from "../_provider/cartProducts-context";
 
 interface IProductsItensProps {
   product: IProduct;

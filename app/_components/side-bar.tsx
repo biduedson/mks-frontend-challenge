@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { CartContext } from "../_context/data-context";
+import { CartContext } from "../_provider/cartProducts-context";
 import { Button } from "./ui/button";
 import Cart from "./cart";
 import TotalPriceCart from "./total-cart-price";
