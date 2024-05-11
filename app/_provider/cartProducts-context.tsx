@@ -1,6 +1,6 @@
 "use client";
 import Cookies from "js-cookie";
-import { ReactNode, createContext, useMemo, useState } from "react";
+import { ReactNode, createContext, useEffect, useMemo, useState } from "react";
 import {
   IProduct,
   ICartProduct,
@@ -20,12 +20,16 @@ export const CartContext = createContext<ICartContext>({
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const initialState = Cookies.get("cart")
-    ? JSON.parse(Cookies.get("cart")!)
+  const initialState = localStorage.getItem("cart")
+    ? JSON.parse(localStorage.getItem("cart")!)
     : [];
 
   const [cartProducts, setCartProducts] =
     useState<ICartProduct[]>(initialState);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartProducts));
+  }, [cartProducts]);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -52,7 +56,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             quantity: cartProduct.quantity - 1,
           };
         }
-        Cookies.set("cart", JSON.stringify(cartProducts));
+        localStorage.setItem("cart", JSON.stringify(cartProducts));
         return cartProduct;
       })
     );
@@ -67,7 +71,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             quantity: cartProduct.quantity + 1,
           };
         }
-        Cookies.set("cart", JSON.stringify(cartProducts));
+        localStorage.setItem("cart", JSON.stringify(cartProducts));
 
         return cartProduct;
       })
@@ -89,14 +93,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
               quantity: cartProduct.quantity + quantity,
             };
           }
-          Cookies.set("cart", JSON.stringify(cartProducts));
+          localStorage.setItem("cart", JSON.stringify(cartProducts));
           return cartProduct;
         })
       );
     }
 
     setCartProducts((prev) => [...prev, { product, quantity }]);
-    Cookies.set("cart", JSON.stringify(cartProducts));
+    localStorage.setItem("cart", JSON.stringify(cartProducts));
   };
 
   //removendo produtos do carrinho
