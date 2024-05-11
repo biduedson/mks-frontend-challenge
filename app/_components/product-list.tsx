@@ -1,12 +1,10 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
-import { CartContext } from "../_context/data-context";
+import { useEffect, useState } from "react";
 import ProductItem from "./product-item";
-import { api } from "../_api/api";
 import { IProducts } from "../_interfaces/interfaces";
+import { api } from "../_api/api";
 
 const ProductList = () => {
-  //const products = useContext(productcontext);
   const [products, setProducts] = useState<IProducts>();
 
   useEffect(() => {
