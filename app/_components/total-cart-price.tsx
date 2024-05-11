@@ -13,10 +13,9 @@ const TotalPriceCart = () => {
       </div>
       <Button
         className="w-full rounded-none h-[55px] bg-black text-xl font-bold"
-        disabled={cartProducts.length === 0}
         onClick={clearCart}
       >
-        {cartProducts.length > 0 ? "Finaliza Compra" : "Carrinho  vazio."}
+        Finaliza Compra
       </Button>
     </div>
   );

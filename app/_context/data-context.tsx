@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactNode, createContext, useEffect, useMemo, useState } from "react";
-import { api } from "../_api/api";
 import {
   IProduct,
   ICartProduct,
@@ -14,18 +13,30 @@ export const CartContext = createContext<ICartContext>({
   sideBarOpen: (isopen: boolean) => false,
   isOpen: false,
   addProductToCart: (product: IProduct, quantity: number) => {},
+  removeProductFronCart: (id: number) => {},
   decreaseProductQuantity: () => {},
   increaseProductQuantity: () => {},
   clearCart: () => {},
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cartProducts, setCartProducts] = useState<ICartProduct[]>([]);
+  const initialState = localStorage.getItem("cart")
+    ? JSON.parse(localStorage.getItem("cart")!)
+    : [];
+
+  const [cartProducts, setCartProducts] =
+    useState<ICartProduct[]>(initialState);
+
   const [isOpen, setIsOpen] = useState(false);
+
   const sideBarOpen = (isOpen: boolean) => {
     setIsOpen(() => !isOpen);
     return isOpen;
   };
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartProducts));
+  }, [cartProducts]);
 
   const totalCartPrice = useMemo(() => {
     return cartProducts.reduce((acc, product) => {
@@ -45,6 +56,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             quantity: cartProduct.quantity - 1,
           };
         }
+        localStorage.setItem("cart", JSON.stringify(cartProducts));
         return cartProduct;
       })
     );
@@ -59,6 +71,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             quantity: cartProduct.quantity + 1,
           };
         }
+        localStorage.setItem("cart", JSON.stringify(cartProducts));
+
         return cartProduct;
       })
     );
@@ -78,13 +92,20 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
               quantity: cartProduct.quantity + quantity,
             };
           }
-
+          localStorage.setItem("cart", JSON.stringify(cartProducts));
           return cartProduct;
         })
       );
     }
 
     setCartProducts((prev) => [...prev, { product, quantity }]);
+    localStorage.setItem("cart", JSON.stringify(cartProducts));
+  };
+
+  const removeProductFronCart = (id: number) => {
+    return setCartProducts((prev) =>
+      prev.filter((product) => product.product.id !== id)
+    );
   };
 
   const clearCart = () => {
@@ -98,6 +119,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         cartProducts,
         sideBarOpen,
         addProductToCart,
+        removeProductFronCart,
         decreaseProductQuantity,
         increaseProductQuantity,
         totalCartPrice,
