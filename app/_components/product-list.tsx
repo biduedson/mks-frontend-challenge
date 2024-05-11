@@ -24,10 +24,10 @@ const ProductList = () => {
   }, [products]);
 
   if (!products) {
-    return <h1>loading</h1>;
+    return <h1 className="ani animate-pulse">loading!</h1>;
   }
   return (
-    <div className="flex items-center flex-col gap-4 pb-16 pt-4">
+    <div className="flex items-center flex-col gap-4 pb-16 pt-4 ">
       {products.products.map((product) => (
         <div className="" key={product.id}>
           <ProductItem product={product} />
