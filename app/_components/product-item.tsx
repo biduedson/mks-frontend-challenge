@@ -3,16 +3,8 @@ import Image from "next/image";
 import { IProduct } from "../_interfaces/interfaces";
 import { Button } from "./ui/button";
 import { formatCurrency } from "../_helpers/price";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../_context/data-context";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "./ui/sheet";
-import Cart from "./cart";
 
 interface IProductsItensProps {
   product: IProduct;
@@ -20,27 +12,32 @@ interface IProductsItensProps {
 const ProductItem = ({ product }: IProductsItensProps) => {
   const { cartProducts, addProductToCart, totalCartPrice } =
     useContext(CartContext);
-  const [isCArtOpen, setIsCartOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const addToCart = () => {
     addProductToCart(product, quantity);
-    setIsCartOpen(true);
   };
+
   return (
-    <div className="w-[250.5px] h-[328px] flex items-center flex-col  shadow-lg   rounded-lg justi justify-end ">
-      <div className="relative w-[127.8px] h-[158.82px]">
+    <div
+      className="w-[250.5px] h-[328px] flex items-center flex-col shadow-lgrounded-lg justi justify-end 
+    lg:w-[218px] lg:h-[285px]"
+    >
+      <div className="relative w-[127.8px] h-[158.82px] lg:[97px] lg:h-[139px] ">
         <Image src={product.photo} alt={product.name} fill />
       </div>
       <div className="flex items-center pt-2">
-        <div className="w-[142.77px] h-[43.73px] flex items-center">
+        <div className="w-[142.77px] h-[43.73px] flex items-center lg:w-[124px] lg:h-[38px]">
           <p className="text-black text-[16px] font-normal">{product.name}</p>
         </div>
-        <div className="flex justify-center items-center rounded-[5px] w-[73.69px] h-[29.92px] bg-primary-black  text-white">
+        <div
+          className="flex justify-center items-center rounded-[5px] w-[73.69px] h-[29.92px] bg-primary-black  text-white
+        lg:w-[62px] lg:[26px] lg:text-[12px] lg:font-bold"
+        >
           {formatCurrency(Number(product.price))}
         </div>
       </div>
 
-      <p className="text-[10px] font-light w-[221px] text-left py-4">
+      <p className="text-[10px] font-light w-[221px] text-left py-4 lg:w-[192px] lg:py-2 ">
         Redesigned from scratch and completely revised.
       </p>
       <Button
