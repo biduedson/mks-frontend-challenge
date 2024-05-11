@@ -19,5 +19,11 @@ export interface IProducts{
 }
 export interface ICartContext{
     cartProducts:ICartProduct[];
+    totalCartPrice:number;
+    sideBarOpen:(isopen: boolean) => boolean;
+    isOpen:boolean;
     addProductToCart:(product: IProduct, quantity: number) => void;
+    decreaseProductQuantity: (id: number) => void;
+    increaseProductQuantity: (id: number) => void;
+    clearCart:() => void;
 }
