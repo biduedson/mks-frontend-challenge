@@ -23,6 +23,7 @@ export interface ICartContext{
     sideBarOpen:(isopen: boolean) => boolean;
     isOpen:boolean;
     addProductToCart:(product: IProduct, quantity: number) => void;
+    removeProductFronCart:(id: number) => void;
     decreaseProductQuantity: (id: number) => void;
     increaseProductQuantity: (id: number) => void;
     clearCart:() => void;
