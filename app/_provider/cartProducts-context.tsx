@@ -20,15 +20,15 @@ export const CartContext = createContext<ICartContext>({
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const initialState = localStorage.getItem("cart")
-    ? JSON.parse(localStorage.getItem("cart")!)
+  const initialState = Cookies.get("cart")
+    ? JSON.parse(Cookies.get("cart")!)
     : [];
 
   const [cartProducts, setCartProducts] =
     useState<ICartProduct[]>(initialState);
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartProducts));
+    Cookies.set("cart", JSON.stringify(cartProducts));
   }, [cartProducts]);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -56,7 +56,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             quantity: cartProduct.quantity - 1,
           };
         }
-        localStorage.setItem("cart", JSON.stringify(cartProducts));
+        Cookies.set("cart", JSON.stringify(cartProducts));
         return cartProduct;
       })
     );
@@ -71,7 +71,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             quantity: cartProduct.quantity + 1,
           };
         }
-        localStorage.setItem("cart", JSON.stringify(cartProducts));
+        Cookies.set("cart", JSON.stringify(cartProducts));
 
         return cartProduct;
       })
@@ -93,14 +93,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
               quantity: cartProduct.quantity + quantity,
             };
           }
-          localStorage.setItem("cart", JSON.stringify(cartProducts));
+          Cookies.set("cart", JSON.stringify(cartProducts));
           return cartProduct;
         })
       );
     }
 
     setCartProducts((prev) => [...prev, { product, quantity }]);
-    localStorage.setItem("cart", JSON.stringify(cartProducts));
+    Cookies.set("cart", JSON.stringify(cartProducts));
   };
 
   //removendo produtos do carrinho
