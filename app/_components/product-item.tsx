@@ -18,7 +18,8 @@ interface IProductsItensProps {
   product: IProduct;
 }
 const ProductItem = ({ product }: IProductsItensProps) => {
-  const { cartProducts, addProductToCart } = useContext(CartContext);
+  const { cartProducts, addProductToCart, totalCartPrice } =
+    useContext(CartContext);
   const [isCArtOpen, setIsCartOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const addToCart = () => {
@@ -54,19 +55,6 @@ const ProductItem = ({ product }: IProductsItensProps) => {
         />
         <p className="uppercase text-sm  font-medium leading-[18px]">Comprar</p>
       </Button>
-      <Sheet open={isCArtOpen} onOpenChange={setIsCartOpen}>
-        <SheetContent className="bg-p bg-primary-blue">
-          <SheetHeader>
-            <SheetTitle className="text-white text-left text-[27px] leading-8 font-semibold">
-              Carrinho de compras
-            </SheetTitle>
-            <>
-              <div></div>
-            </>
-          </SheetHeader>
-          <Cart setIsOpen={setIsCartOpen} />
-        </SheetContent>
-      </Sheet>
     </div>
   );
 };
