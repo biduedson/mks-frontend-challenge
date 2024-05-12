@@ -22,13 +22,6 @@ const ProductItem = ({ product }: IProductsItensProps) => {
   const addToCart = () => {
     addProductToCart(product, quantity);
     toast("Produto adicionado ao carrinho com sucesso!", {
-      action: {
-        label: "Ver Carrinho",
-
-        onClick: () => {
-          sideBarOpen(isOpen);
-        },
-      },
       duration: 2000,
       position: "top-left",
       actionButtonStyle: {
