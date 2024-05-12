@@ -3,6 +3,7 @@ import { Inter, Montserrat } from "next/font/google";
 
 import "./globals.css";
 import { CartProvider } from "./_provider/cartProducts-context";
+import { Toaster } from "./_components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 const montserrat = Montserrat({
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.className} ${montserrat.variable}`}>
       <body>
         <CartProvider>{children}</CartProvider>
+        <Toaster />
       </body>
     </html>
   );

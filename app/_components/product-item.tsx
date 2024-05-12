@@ -5,16 +5,31 @@ import { Button } from "./ui/button";
 import { formatCurrency } from "../_helpers/price";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../_provider/cartProducts-context";
+import { toast } from "sonner";
 
 interface IProductsItensProps {
   product: IProduct;
 }
 const ProductItem = ({ product }: IProductsItensProps) => {
-  const { cartProducts, addProductToCart, totalCartPrice } =
-    useContext(CartContext);
+  const {
+    cartProducts,
+    addProductToCart,
+    totalCartPrice,
+    sideBarOpen,
+    isOpen,
+  } = useContext(CartContext);
   const [quantity, setQuantity] = useState(1);
   const addToCart = () => {
     addProductToCart(product, quantity);
+    toast("Produto adicionado ao carrinho com sucesso!", {
+      description: "Para ver os produtos acesse  o carrinho de compras",
+      action: {
+        label: "Meu carrinho",
+        onClick: () => {
+          sideBarOpen(isOpen);
+        },
+      },
+    });
   };
 
   return (
