@@ -22,19 +22,25 @@ const ProductItem = ({ product }: IProductsItensProps) => {
   const addToCart = () => {
     addProductToCart(product, quantity);
     toast("Produto adicionado ao carrinho com sucesso!", {
-      description: "Para ver os produtos acesse  o carrinho de compras",
       action: {
-        label: "Meu carrinho",
+        label: "Ver Carrinho",
+
         onClick: () => {
           sideBarOpen(isOpen);
         },
+      },
+      duration: 2000,
+      position: "top-left",
+      actionButtonStyle: {
+        background: "#fff",
+        color: "#000",
       },
     });
   };
 
   return (
     <div
-      className="w-[250.5px] h-[328px] flex items-center flex-col shadow-lgrounded-lg justi justify-end 
+      className="w-[250.5px] h-[328px]  flex items-center flex-col shadow-lgrounded-lg justi justify-end 
     lg:w-[218px] lg:h-[285px]"
     >
       <div className="relative w-[127.8px] h-[158.82px] lg:[97px] lg:h-[139px] ">
