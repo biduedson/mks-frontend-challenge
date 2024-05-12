@@ -56,7 +56,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             quantity: cartProduct.quantity - 1,
           };
         }
-        Cookies.set("cart", JSON.stringify(cartProducts));
         return cartProduct;
       })
     );
@@ -71,8 +70,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             quantity: cartProduct.quantity + 1,
           };
         }
-        Cookies.set("cart", JSON.stringify(cartProducts));
-
         return cartProduct;
       })
     );
@@ -93,14 +90,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
               quantity: cartProduct.quantity + quantity,
             };
           }
-          Cookies.set("cart", JSON.stringify(cartProducts));
           return cartProduct;
         })
       );
     }
-
     setCartProducts((prev) => [...prev, { product, quantity }]);
-    Cookies.set("cart", JSON.stringify(cartProducts));
   };
 
   //removendo produtos do carrinho
